@@ -1,0 +1,24 @@
+diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/i2c/aux.c b/drivers/gpu/drm/nouveau/nvkm/subdev/i2c/aux.c
+index a11637b0f..b5ff93f66 100644
+--- a/drivers/gpu/drm/nouveau/nvkm/subdev/i2c/aux.c
++++ b/drivers/gpu/drm/nouveau/nvkm/subdev/i2c/aux.c
+@@ -196,6 +196,7 @@ nvkm_i2c_aux_ctor(const struct nvkm_i2c_aux_func *func,
+ 	snprintf(aux->i2c.name, sizeof(aux->i2c.name), "nvkm-%s-aux-%04x",
+ 		 dev_name(device->dev), id);
+ 	aux->i2c.owner = THIS_MODULE;
++	aux->i2c.class = I2C_CLASS_DDC;
+ 	aux->i2c.dev.parent = device->dev;
+ 	aux->i2c.algo = &nvkm_i2c_aux_i2c_algo;
+ 	return i2c_add_adapter(&aux->i2c);
+diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/i2c/bus.c b/drivers/gpu/drm/nouveau/nvkm/subdev/i2c/bus.c
+index ed50cc373..a668ac6bf 100644
+--- a/drivers/gpu/drm/nouveau/nvkm/subdev/i2c/bus.c
++++ b/drivers/gpu/drm/nouveau/nvkm/subdev/i2c/bus.c
+@@ -228,6 +228,7 @@ nvkm_i2c_bus_ctor(const struct nvkm_i2c_bus_func *func,
+ 	snprintf(bus->i2c.name, sizeof(bus->i2c.name), "nvkm-%s-bus-%04x",
+ 		 dev_name(device->dev), id);
+ 	bus->i2c.owner = THIS_MODULE;
++	bus->i2c.class = I2C_CLASS_DDC;
+ 	bus->i2c.dev.parent = device->dev;
+
+ 	if ( bus->func->drive_scl &&
